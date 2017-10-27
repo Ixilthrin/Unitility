@@ -22,9 +22,9 @@ namespace Samples
             return texture;
         }
 
-        public static void SetMainTextureOnMaterial(MonoBehaviour behavior, Texture2D texture)
+        public static void SetMainTextureOnMaterial(Component component, Texture2D texture)
         {
-            behavior.GetComponent<Renderer>().material.mainTexture = texture;
+            component.GetComponent<Renderer>().material.mainTexture = texture;
         }
     }
 
@@ -43,11 +43,11 @@ namespace Samples
 
     public static class Meshes
     {
-        public static Mesh CreateAndAddSimpleProceduralMesh(GameObject gObject, MonoBehaviour behavior)
+        public static Mesh CreateAndAddSimpleProceduralMesh(GameObject gObject, Component component)
         {
             gObject.AddComponent<MeshFilter>();
             gObject.AddComponent<MeshRenderer>();
-            Mesh objectMesh = behavior.GetComponent<MeshFilter>().mesh;
+            Mesh objectMesh = component.GetComponent<MeshFilter>().mesh;
 
             objectMesh.Clear();
 
@@ -68,10 +68,10 @@ namespace Samples
 
     public static class Materials
     {
-        public static Material CreateSimpleMaterial(MonoBehaviour behavior)
+        public static Material CreateSimpleMaterial(Component component)
         {
             var material = new Material(Shader.Find("Transparent/Diffuse"));
-            material.color = Color.red;
+            material.color = Color.green;
             return material;
         }
     }
