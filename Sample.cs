@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
+// Warning:  This is not the greatest code.  These are working
+// examples of how certain tasks can be achieved within unity scripts.
 namespace Samples
 {
     public static class Textures
