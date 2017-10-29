@@ -1,10 +1,29 @@
 ﻿using System;
 using UnityEngine;
 
-// Warning:  This is not the greatest code.  These are working
-// examples of how certain tasks can be achieved within unity scripts.
 namespace Samples
 {
+    public static class GameEnvironment
+    {
+        public static float GetDeltaTime()
+        {
+            return Time.deltaTime;
+        }
+    }
+
+    public static class GameObjects
+    {
+        public static Vector3 GetCurrentPosition(MonoBehaviour behavior)
+        {
+            return behavior.GetComponent<Transform>().position;
+        }
+
+        public static void SetCurrentPosition(MonoBehaviour behavior, Vector3 position)
+        {
+            behavior.GetComponent<Transform>().position = position;
+        }
+    }
+
     public static class Textures
     {
         public static Texture2D CreateTexture(Color color)
@@ -15,8 +34,10 @@ namespace Samples
             var texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
             texture.filterMode = FilterMode.Point;
 
-            for (int i = 0; i < width; i++) {
-                for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
                     texture.SetPixel(j, height - 1 - i, color);
                 }
             }
@@ -45,21 +66,27 @@ namespace Samples
 
     public static class Meshes
     {
-        public static Mesh CreateAndAddSimpleProceduralMesh(GameObject gObject, Component component)
+        public static void AddMeshRenderingComponents(GameObject gObject)
         {
             gObject.AddComponent<MeshFilter>();
             gObject.AddComponent<MeshRenderer>();
-            Mesh objectMesh = component.GetComponent<MeshFilter>().mesh;
+        }
 
-            objectMesh.Clear();
-
-            var mesh = new Mesh ();
+        public static Mesh CreateSimpleMesh()
+        {
+            var mesh = new Mesh();
 
             mesh.vertices = new Vector3[] { new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0) };
             mesh.uv = new Vector2[] { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1) };
-            mesh.triangles =  new int[] {0, 1, 2};
+            mesh.triangles = new int[] { 0, 1, 2 };
 
             return mesh;
+        }
+
+        public static void SetCurrentMesh(MonoBehaviour behavior, Mesh mesh)
+        {
+            var meshFilter = behavior.GetComponent<MeshFilter>();
+            meshFilter.mesh = mesh;
         }
 
         public static void DrawMesh(Mesh mesh, Material material, float x, float y, float z)
@@ -78,4 +105,4 @@ namespace Samples
         }
     }
 }
-	
+
